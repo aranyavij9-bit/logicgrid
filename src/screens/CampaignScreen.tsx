@@ -1,4 +1,4 @@
-import { CAMPAIGN_CHAPTERS, getChallengeById } from '@/engine/challenges';
+import { CAMPAIGN_CHAPTERS, getChallengeById, categoryLabel } from '@/engine/challenges';
 import type { GameData, Screen } from '@/types';
 import { Lock, CheckCircle2, ChevronDown, Play, Trophy, Star } from 'lucide-react';
 import { useState } from 'react';
@@ -33,30 +33,30 @@ export function CampaignScreen({ data, onStartChallenge }: CampaignScreenProps) 
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 animate-fade-in">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Campaign</h1>
+        <h1 className="text-3xl font-bold text-ink mb-2">Campaign</h1>
         <p className="text-gray-400">Progress through 8 chapters of computational reasoning challenges.</p>
 
         {/* Progress overview */}
         <div className="mt-5 grid grid-cols-3 gap-3">
-          <div className="bg-base-700/60 rounded-xl border border-white/5 p-3 text-center">
-            <div className="text-2xl font-bold font-mono text-accent-400">{completedChapters}/{CAMPAIGN_CHAPTERS.length}</div>
+          <div className="bg-base-700 rounded-3xl border border-line p-3 text-center shadow-soft">
+            <div className="text-2xl font-bold font-display text-accent-400">{completedChapters}/{CAMPAIGN_CHAPTERS.length}</div>
             <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">Chapters</div>
           </div>
-          <div className="bg-base-700/60 rounded-xl border border-white/5 p-3 text-center">
-            <div className="text-2xl font-bold font-mono text-success-400">{data.stats.totalSolved}</div>
+          <div className="bg-base-700 rounded-3xl border border-line p-3 text-center shadow-soft">
+            <div className="text-2xl font-bold font-display text-success-400">{data.stats.totalSolved}</div>
             <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">Solved</div>
           </div>
-          <div className="bg-base-700/60 rounded-xl border border-white/5 p-3 text-center">
-            <div className="text-2xl font-bold font-mono text-amber-400">{totalStars}★</div>
+          <div className="bg-base-700 rounded-3xl border border-line p-3 text-center shadow-soft">
+            <div className="text-2xl font-bold font-display text-amber-400">{totalStars}★</div>
             <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">Stars</div>
           </div>
         </div>
 
         {/* Progress bar */}
         <div className="mt-4 flex items-center gap-3">
-          <div className="flex-1 h-2.5 bg-base-400/50 rounded-full overflow-hidden">
+          <div className="flex-1 h-2.5 bg-gray-800 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-accent-500 to-secondary-500 rounded-full transition-all duration-700"
+              className="h-full bg-accent-500 rounded-full transition-all duration-700"
               style={{ width: `${(completedChapters / CAMPAIGN_CHAPTERS.length) * 100}%` }}
             />
           </div>
@@ -78,20 +78,20 @@ export function CampaignScreen({ data, onStartChallenge }: CampaignScreenProps) 
               <button
                 onClick={() => unlocked && setExpandedChapter(expanded ? null : chapter.id)}
                 disabled={!unlocked}
-                className={`w-full flex items-center gap-4 p-4 rounded-2xl border transition-all text-left ${
+                className={`w-full flex items-center gap-4 p-4 rounded-3xl border transition-all text-left ${
                   !unlocked
-                    ? 'bg-base-700/30 border-white/5 opacity-50 cursor-not-allowed'
+                    ? 'bg-base-700/30 border-line opacity-50 cursor-not-allowed'
                     : expanded
-                    ? 'bg-base-700/80 border-accent-500/30 shadow-lg shadow-accent-500/5'
-                    : 'bg-base-700/60 border-white/5 hover:border-white/10'
+                    ? 'bg-base-700 border-accent-500/30 shadow-soft'
+                    : 'bg-base-700 border-line hover:border-gray-700'
                 }`}
               >
                 {/* Chapter number / status */}
                 <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${
-                  completed ? 'bg-success-500/15' : unlocked ? 'bg-accent-500/10' : 'bg-base-400/40'
+                  completed ? 'bg-success-500/15' : unlocked ? 'bg-accent-500/10' : 'bg-base-400'
                 }`}>
                   {!unlocked ? (
-                    <Lock className="w-4 h-4 text-base-300/40" />
+                    <Lock className="w-4 h-4 text-gray-500" />
                   ) : fullyCompleted ? (
                     <Trophy className="w-5 h-5 text-amber-400" />
                   ) : (
@@ -101,7 +101,7 @@ export function CampaignScreen({ data, onStartChallenge }: CampaignScreenProps) 
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <h3 className={`font-semibold ${unlocked ? 'text-white' : 'text-gray-500'}`}>
+                    <h3 className={`font-semibold ${unlocked ? 'text-ink' : 'text-gray-500'}`}>
                       {chapter.title}
                     </h3>
                     {fullyCompleted && (
@@ -112,7 +112,7 @@ export function CampaignScreen({ data, onStartChallenge }: CampaignScreenProps) 
                   {/* Mini progress */}
                   {unlocked && !fullyCompleted && (
                     <div className="mt-1.5 flex items-center gap-2">
-                      <div className="flex-1 h-1 bg-base-400/50 rounded-full overflow-hidden max-w-[120px]">
+                      <div className="flex-1 h-1 bg-gray-800 rounded-full overflow-hidden max-w-[120px]">
                         <div className="h-full bg-accent-400/60 rounded-full transition-all" style={{ width: `${(completedInChapter / chapter.challengeIds.length) * 100}%` }} />
                       </div>
                       <span className="text-[10px] font-mono text-gray-500">{completedInChapter}/{chapter.challengeIds.length}</span>
@@ -139,11 +139,11 @@ export function CampaignScreen({ data, onStartChallenge }: CampaignScreenProps) 
                       <button
                         key={challengeId}
                         onClick={() => onStartChallenge(challengeId)}
-                        className="w-full flex items-center gap-3 p-3 rounded-xl bg-base-800/60 hover:bg-base-700/60 border border-white/5 hover:border-accent-500/20 transition-all text-left group animate-fade-in-up"
+                        className="w-full flex items-center gap-3 p-3 rounded-xl bg-base-800 hover:bg-base-700 border border-line hover:border-accent-500/20 transition-all text-left group animate-fade-in-up"
                         style={{ animationDelay: `${ci * 30}ms` }}
                       >
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
-                          done ? 'bg-success-500/15' : 'bg-base-400/60 group-hover:bg-accent-500/10'
+                          done ? 'bg-success-500/15' : 'bg-base-400 group-hover:bg-accent-500/10'
                         }`}>
                           {done ? (
                             <CheckCircle2 className="w-4 h-4 text-success-400" />
@@ -152,15 +152,15 @@ export function CampaignScreen({ data, onStartChallenge }: CampaignScreenProps) 
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className={`text-sm font-medium ${done ? 'text-white' : 'text-gray-300 group-hover:text-white'}`}>
+                          <div className={`text-sm font-medium ${done ? 'text-ink' : 'text-gray-300 group-hover:text-ink'}`}>
                             {challenge.title}
                           </div>
-                          <div className="text-xs text-gray-500 capitalize">{challenge.category}</div>
+                          <div className="text-xs text-gray-500 capitalize">{categoryLabel(challenge.category)}</div>
                         </div>
                         {stars > 0 && (
                           <div className="flex gap-0.5 flex-shrink-0">
                             {[1, 2, 3].map((s) => (
-                              <Star key={s} className={`w-3 h-3 ${s <= stars ? 'text-amber-400 fill-amber-400' : 'text-base-300/30'}`} />
+                              <Star key={s} className={`w-3 h-3 ${s <= stars ? 'text-amber-400 fill-amber-400' : 'text-gray-500'}`} />
                             ))}
                           </div>
                         )}

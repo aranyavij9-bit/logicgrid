@@ -20,11 +20,11 @@ export function GameGrid({ grid, position, gateState, switchState, targetsReache
   const trailSet = new Set(pathTrail?.map(([r, c]) => `${r},${c}`) ?? []);
 
   return (
-    <div className="inline-block bg-base-700/80 backdrop-blur-sm rounded-2xl p-3 sm:p-4 border border-white/5 shadow-2xl shadow-black/40 glow-border">
+    <div className="inline-block bg-base-700 rounded-3xl p-3 sm:p-4 border border-line shadow-soft">
       {/* Coordinate labels */}
       <div className="flex items-center gap-1 mb-1 ml-5">
         {Array.from({ length: cols }).map((_, c) => (
-          <div key={c} className="w-10 sm:w-12 text-center text-[8px] font-mono text-base-300/40">
+          <div key={c} className="w-10 sm:w-12 text-center text-[8px] font-mono text-gray-500">
             {String.fromCharCode(65 + c)}
           </div>
         ))}
@@ -33,7 +33,7 @@ export function GameGrid({ grid, position, gateState, switchState, targetsReache
         {/* Row labels */}
         <div className="flex flex-col gap-1">
           {Array.from({ length: rows }).map((_, r) => (
-            <div key={r} className="w-4 h-10 sm:h-12 flex items-center justify-center text-[8px] font-mono text-base-300/40">
+            <div key={r} className="w-4 h-10 sm:h-12 flex items-center justify-center text-[8px] font-mono text-gray-500">
               {r + 1}
             </div>
           ))}
@@ -55,40 +55,40 @@ export function GameGrid({ grid, position, gateState, switchState, targetsReache
               return (
                 <div
                   key={`${r}-${c}`}
-                  className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center transition-all duration-200 cell-hover ${
+                  className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center transition-all duration-200 cell-hover ${
                     cell.type === 'wall'
-                      ? 'bg-base-300/40 border border-base-300/30'
+                      ? 'bg-gray-700/70 border border-gray-700'
                       : cell.type === 'gate'
                       ? isGateOpen
                         ? 'bg-success-500/10 border border-success-500/30'
                         : 'bg-error-500/10 border border-error-500/40'
                       : cell.type === 'switch'
                       ? isSwitchOn
-                        ? 'bg-warning-500/20 border border-warning-500/50 shadow-sm shadow-warning-500/20'
-                        : 'bg-base-400/60 border border-base-300/40'
+                        ? 'bg-warning-500/20 border border-warning-500/50 shadow-soft'
+                        : 'bg-base-400 border border-gray-700'
                       : cell.type === 'mud'
-                      ? 'bg-amber-950/40 border border-amber-800/30'
+                      ? 'bg-amber-100/60 border border-amber-300/60'
                       : cell.type === 'energy'
                       ? 'bg-yellow-500/10 border border-yellow-500/30'
                       : cell.type === 'portal'
                       ? 'bg-violet-500/10 border border-violet-500/30'
                       : cell.type === 'target'
                       ? targetReached
-                        ? 'bg-success-500/20 border border-success-500/50 shadow-sm shadow-success-500/20'
+                        ? 'bg-success-500/20 border border-success-500/50 shadow-soft'
                         : 'bg-accent-500/10 border border-accent-500/40'
                       : cell.type === 'start'
                       ? 'bg-secondary-500/10 border border-secondary-500/30'
                       : cell.type === 'checkpoint'
-                      ? 'bg-base-400/50 border border-base-300/30'
+                      ? 'bg-base-400 border border-gray-700'
                       : isInTrail
                       ? 'bg-accent-500/5 border border-accent-500/15'
-                      : 'bg-base-500/60 border border-white/5'
+                      : 'bg-base-500 border border-line'
                   } ${
                     isHighlighted ? 'ring-2 ring-accent-400 ring-offset-1 ring-offset-base-700' : ''
                   } ${
                     isFailed ? 'ring-2 ring-error-500 ring-offset-1 ring-offset-base-700 animate-pulse' : ''
                   } ${
-                    !reducedMotion && isPlayer ? 'animate-glow-pulse' : ''
+                    isPlayer ? 'ring-2 ring-accent-300' : ''
                   }`}
                 >
                   {/* Trail dot */}
@@ -97,13 +97,13 @@ export function GameGrid({ grid, position, gateState, switchState, targetsReache
                   )}
 
                   {/* Cell icons */}
-                  {cell.type === 'wall' && <Square className="w-4 h-4 text-base-300/60 fill-base-300/20" />}
+                  {cell.type === 'wall' && <Square className="w-4 h-4 text-gray-500 fill-gray-600/30" />}
                   {cell.type === 'start' && <Flag className="w-4 h-4 text-secondary-400" />}
                   {cell.type === 'target' && (
                     <Target className={`w-5 h-5 ${targetReached ? 'text-success-400' : 'text-accent-400'} ${!reducedMotion && targetReached ? 'animate-bounce-in' : ''}`} />
                   )}
                   {cell.type === 'switch' && (
-                    <Power className={`w-4 h-4 ${isSwitchOn ? 'text-warning-400' : 'text-base-300/60'} ${!reducedMotion && isSwitchOn ? 'animate-pulse' : ''}`} />
+                    <Power className={`w-4 h-4 ${isSwitchOn ? 'text-warning-400' : 'text-gray-500'} `} />
                   )}
                   {cell.type === 'gate' && (
                     isGateOpen
@@ -112,16 +112,16 @@ export function GameGrid({ grid, position, gateState, switchState, targetsReache
                   )}
                   {cell.type === 'mud' && <Waves className="w-4 h-4 text-amber-700/70" />}
                   {cell.type === 'energy' && (
-                    <Zap className={`w-4 h-4 text-yellow-400 ${!reducedMotion ? 'animate-pulse' : ''}`} />
+                    <Zap className={`w-4 h-4 text-yellow-400`} />
                   )}
                   {cell.type === 'portal' && (
-                    <Diamond className={`w-4 h-4 text-violet-400 ${!reducedMotion ? 'animate-pulse' : ''}`} />
+                    <Diamond className={`w-4 h-4 text-violet-400`} />
                   )}
-                  {cell.type === 'checkpoint' && <Sparkles className="w-3 h-3 text-base-300/60" />}
+                  {cell.type === 'checkpoint' && <Sparkles className="w-3 h-3 text-gray-500" />}
 
                   {/* Cell label */}
                   {cell.label && (
-                    <span className="absolute top-0 left-0.5 text-[7px] sm:text-[8px] font-mono text-base-300/50 leading-none pointer-events-none">
+                    <span className="absolute top-0 left-0.5 text-[7px] sm:text-[8px] font-mono text-gray-500 leading-none pointer-events-none">
                       {cell.label}
                     </span>
                   )}
@@ -135,8 +135,8 @@ export function GameGrid({ grid, position, gateState, switchState, targetsReache
 
                   {/* Player token */}
                   {isPlayer && (
-                    <div className={`absolute inset-0 rounded-lg bg-accent-400/20 flex items-center justify-center ${!reducedMotion ? 'animate-pulse' : ''}`}>
-                      <div className={`w-3.5 h-3.5 rounded-full bg-accent-400 shadow-lg shadow-accent-400/60 ${!reducedMotion ? 'animate-pulse' : ''}`} />
+                    <div className={`absolute inset-0 rounded-lg bg-accent-400/15 flex items-center justify-center`}>
+                      <div className={`w-3.5 h-3.5 rounded-full bg-accent-500 shadow-soft`} />
                       <div className="absolute w-6 h-6 rounded-full border border-accent-400/30" />
                     </div>
                   )}
@@ -148,7 +148,7 @@ export function GameGrid({ grid, position, gateState, switchState, targetsReache
       </div>
 
       {/* Legend */}
-      <div className="mt-3 pt-3 border-t border-white/5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[10px] text-base-300/50 font-mono">
+      <div className="mt-3 pt-3 border-t border-line flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[10px] text-gray-500 font-mono">
         <LegendItem icon={Flag} label="Start" color="text-secondary-400" />
         <LegendItem icon={Target} label="Target" color="text-accent-400" />
         <LegendItem icon={Power} label="Switch" color="text-warning-400" />

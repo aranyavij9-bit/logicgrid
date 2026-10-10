@@ -11,7 +11,7 @@ export function SolutionAnalysis({ challenge, result }: SolutionAnalysisProps) {
   const energyWasted = result.energyRemaining;
 
   return (
-    <div className="bg-[#0d1117] rounded-xl border border-white/5 p-5 space-y-4">
+    <div className="bg-white shadow-soft rounded-3xl border border-line p-5 space-y-4">
       <div>
         <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Your Approach</h3>
         {result.success ? (
@@ -53,8 +53,8 @@ export function SolutionAnalysis({ challenge, result }: SolutionAnalysisProps) {
       </div>
 
       {result.success && excessMoves > 0 && (
-        <div className="bg-cyan-500/5 border border-cyan-500/20 rounded-lg p-3 text-sm text-cyan-200/70">
-          Try looking for a route that minimises unnecessary movements. Check if activating switches in a different order could shorten your path.
+        <div className="bg-cyan-500/5 border border-cyan-500/20 rounded-lg p-3 text-sm text-cyan-700">
+          Try looking for a route that minimizes unnecessary movements. Check if activating switches in a different order could shorten your path.
         </div>
       )}
     </div>

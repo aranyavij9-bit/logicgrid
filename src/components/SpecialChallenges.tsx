@@ -23,7 +23,7 @@ export function PatternChallengeView({ pattern, onAnswer, hintsUsed, onUseHint, 
 
   return (
     <div className="space-y-6">
-      <div className="bg-[#0d1117] rounded-xl border border-white/5 p-6">
+      <div className="bg-white shadow-soft rounded-3xl border border-line p-6">
         <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Sequence</h3>
         <div className="flex flex-wrap items-center justify-center gap-3">
           {pattern.sequence.map((val, i) => (
@@ -34,7 +34,7 @@ export function PatternChallengeView({ pattern, onAnswer, hintsUsed, onUseHint, 
                     ? 'bg-cyan-500/15 border-2 border-dashed border-cyan-500/50 text-cyan-400'
                     : typeof val === 'number' && isNaN(val as number)
                     ? 'bg-cyan-500/15 border-2 border-dashed border-cyan-500/50 text-cyan-400'
-                    : 'bg-[#1c2230] border border-white/5 text-white'
+                    : 'bg-base-500 border border-line text-ink'
                 }`}
               >
                 {typeof val === 'number' && isNaN(val as number) ? '?' : val}
@@ -47,7 +47,7 @@ export function PatternChallengeView({ pattern, onAnswer, hintsUsed, onUseHint, 
         </div>
       </div>
 
-      <div className="bg-[#0d1117] rounded-xl border border-white/5 p-6">
+      <div className="bg-white shadow-soft rounded-3xl border border-line p-6">
         <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Select the missing value</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {pattern.options.map((opt) => (
@@ -60,7 +60,7 @@ export function PatternChallengeView({ pattern, onAnswer, hintsUsed, onUseHint, 
                   ? feedback === 'correct'
                     ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-400'
                     : 'bg-red-500/20 border-red-500/50 text-red-400'
-                  : 'bg-[#1c2230] border-white/5 text-gray-300 hover:border-cyan-500/30 hover:text-cyan-400'
+                  : 'bg-base-500 border-line text-gray-300 hover:border-cyan-500/30 hover:text-cyan-400'
               } disabled:cursor-not-allowed`}
             >
               {opt}
@@ -92,7 +92,7 @@ export function PatternChallengeView({ pattern, onAnswer, hintsUsed, onUseHint, 
       {hintRevealed.length > 0 && (
         <div className="space-y-2">
           {hintRevealed.map((h, i) => (
-            <div key={i} className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-200/80">
+            <div key={i} className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-700">
               <span className="font-semibold text-amber-400">Hint {i + 1}:</span> {h}
             </div>
           ))}
@@ -130,7 +130,7 @@ export function LogicChallengeView({ logic, onSolved, hintsUsed, onUseHint, hint
 
   return (
     <div className="space-y-6">
-      <div className="bg-[#0d1117] rounded-xl border border-white/5 p-6">
+      <div className="bg-white shadow-soft rounded-3xl border border-line p-6">
         <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
           <Cpu className="w-4 h-4" /> Logic Circuit
         </h3>
@@ -141,13 +141,13 @@ export function LogicChallengeView({ logic, onSolved, hintsUsed, onUseHint, hint
             <button
               key={inp.id}
               onClick={() => toggleInput(inp.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all border-2 ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm transition-all border-2 ${
                 inputStates[inp.id]
                   ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
-                  : 'bg-[#1c2230] border-white/5 text-gray-400'
+                  : 'bg-base-500 border-line text-gray-400'
               }`}
             >
-              <div className={`w-3 h-3 rounded-full ${inputStates[inp.id] ? 'bg-emerald-400' : 'bg-gray-600'}`} />
+              <div className={`w-3 h-3 rounded-full ${inputStates[inp.id] ? 'bg-emerald-400' : 'bg-gray-700'}`} />
               {inp.label}
             </button>
           ))}
@@ -163,13 +163,13 @@ export function LogicChallengeView({ logic, onSolved, hintsUsed, onUseHint, hint
                   <div className="flex flex-col gap-1">
                     {gate.inputs.map((inp) => (
                       <div key={inp} className="flex items-center gap-1">
-                        <div className={`w-2 h-2 rounded-full ${results.get(inp) || inputStates[inp] ? 'bg-emerald-400' : 'bg-gray-600'}`} />
+                        <div className={`w-2 h-2 rounded-full ${results.get(inp) || inputStates[inp] ? 'bg-emerald-400' : 'bg-gray-700'}`} />
                         <span className="text-[10px] font-mono text-gray-500">{inp}</span>
                       </div>
                     ))}
                   </div>
                   <div className={`w-16 h-16 rounded-xl flex flex-col items-center justify-center border-2 ${
-                    val ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-[#1c2230] border-white/5'
+                    val ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-base-500 border-line'
                   }`}>
                     <span className={`text-2xl font-bold ${val ? 'text-emerald-400' : 'text-gray-500'}`}>
                       {getGateSymbol(gate.type)}
@@ -183,11 +183,11 @@ export function LogicChallengeView({ logic, onSolved, hintsUsed, onUseHint, hint
         </div>
 
         {/* Output */}
-        <div className="flex items-center justify-center gap-3 mt-6 pt-4 border-t border-white/5">
+        <div className="flex items-center justify-center gap-3 mt-6 pt-4 border-t border-line">
           <GitBranch className="w-5 h-5 text-gray-500" />
           <span className="text-sm text-gray-400">Output:</span>
           <div className={`px-4 py-1.5 rounded-lg font-mono font-bold text-sm ${
-            outputValue ? 'bg-emerald-500/15 text-emerald-400' : 'bg-gray-800 text-gray-500'
+            outputValue ? 'bg-emerald-500/15 text-emerald-400' : 'bg-base-400 text-gray-500'
           }`}>
             {outputValue ? 'TRUE' : 'FALSE'}
           </div>
@@ -213,7 +213,7 @@ export function LogicChallengeView({ logic, onSolved, hintsUsed, onUseHint, hint
       {hintRevealed.length > 0 && (
         <div className="space-y-2">
           {hintRevealed.map((h, i) => (
-            <div key={i} className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-200/80">
+            <div key={i} className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-700">
               <span className="font-semibold text-amber-400">Hint {i + 1}:</span> {h}
             </div>
           ))}

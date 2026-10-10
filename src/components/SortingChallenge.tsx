@@ -40,7 +40,7 @@ export function SortingChallengeView({ pattern, onSolved, hintsUsed, onUseHint, 
 
   return (
     <div className="space-y-6">
-      <div className="bg-[#0d1117] rounded-xl border border-white/5 p-6">
+      <div className="bg-white shadow-soft rounded-3xl border border-line p-6">
         <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Sort the Sequence</h3>
         <p className="text-sm text-gray-400 mb-4">Click two numbers to swap them. Arrange from smallest to largest.</p>
 
@@ -54,7 +54,7 @@ export function SortingChallengeView({ pattern, onSolved, hintsUsed, onUseHint, 
                   ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-400 scale-110'
                   : sorted
                   ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
-                  : 'bg-[#1c2230] border-white/5 text-gray-300 hover:border-cyan-500/30'
+                  : 'bg-base-500 border-line text-gray-300 hover:border-cyan-500/30'
               }`}
             >
               {val}
@@ -63,7 +63,7 @@ export function SortingChallengeView({ pattern, onSolved, hintsUsed, onUseHint, 
         </div>
 
         <div className="flex items-center justify-center gap-4 mt-4 text-xs text-gray-500">
-          <span>Swaps: <span className="font-mono text-white">{swaps}</span></span>
+          <span>Swaps: <span className="font-mono text-ink">{swaps}</span></span>
           <span>Target: <span className="font-mono text-cyan-400">{target.join(', ')}</span></span>
           {sorted && (
             <span className="text-emerald-400 flex items-center gap-1">
@@ -85,7 +85,7 @@ export function SortingChallengeView({ pattern, onSolved, hintsUsed, onUseHint, 
       {hintRevealed.length > 0 && (
         <div className="space-y-2">
           {hintRevealed.map((h, i) => (
-            <div key={i} className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-200/80">
+            <div key={i} className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-3 text-sm text-amber-700">
               <span className="font-semibold text-amber-400">Hint {i + 1}:</span> {h}
             </div>
           ))}

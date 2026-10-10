@@ -184,7 +184,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0e14]">
+    <div className="min-h-screen bg-cream">
       <NavBar screen={screen} onNavigate={navigate} data={data} onToggleSound={handleToggleSound} soundEnabled={soundEnabled} />
       {renderScreen()}
     </div>

@@ -1,3 +1,4 @@
+import { categoryLabel } from '@/engine/challenges';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Challenge, PlacedAction, ExecutionResult, ActionDef, GateState, SwitchState, ExecutionPosition } from '@/types';
 import { executeSolution } from '@/engine/executor';
@@ -361,7 +362,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
             result={specialScoreResult}
             score={calculateScore(challenge, specialScoreResult, retries, hintsUsed)}
             onReplay={() => { resetState(); setSpecialSolved(false); setShowScore(false); }}
-            onOptimise={() => { resetState(); setSpecialSolved(false); setShowScore(false); }}
+            onOptimize={() => { resetState(); setSpecialSolved(false); setShowScore(false); }}
             onNext={onNextChallenge}
             isNewRecord={false}
           />
@@ -387,7 +388,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
             result={specialScoreResult}
             score={calculateScore(challenge, specialScoreResult, retries, hintsUsed)}
             onReplay={() => { resetState(); setSpecialSolved(false); setShowScore(false); }}
-            onOptimise={() => { resetState(); setSpecialSolved(false); setShowScore(false); }}
+            onOptimize={() => { resetState(); setSpecialSolved(false); setShowScore(false); }}
             onNext={onNextChallenge}
             isNewRecord={false}
           />
@@ -413,7 +414,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
             result={specialScoreResult}
             score={calculateScore(challenge, specialScoreResult, retries, hintsUsed)}
             onReplay={() => { resetState(); setSpecialSolved(false); setShowScore(false); }}
-            onOptimise={() => { resetState(); setSpecialSolved(false); setShowScore(false); }}
+            onOptimize={() => { resetState(); setSpecialSolved(false); setShowScore(false); }}
             onNext={onNextChallenge}
             isNewRecord={false}
           />
@@ -450,12 +451,12 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
 
           {/* Execution log */}
           {isRunning && currentStep >= 0 && execResult && (
-            <div className="bg-base-700/80 rounded-xl border border-white/5 p-3 max-h-32 overflow-y-auto">
-              <div className="text-[10px] font-mono text-base-300/40 uppercase tracking-wider mb-1">Execution Log</div>
+            <div className="bg-base-700 rounded-3xl border border-line p-3 max-h-32 overflow-y-auto shadow-soft">
+              <div className="text-[10px] font-mono text-gray-500 uppercase tracking-wider mb-1">Execution Log</div>
               <div className="space-y-0.5 text-xs font-mono">
                 {execResult.steps.slice(0, currentStep + 1).map((s, i) => (
-                  <div key={i} className={`flex items-center gap-2 ${i === currentStep ? 'text-accent-400' : 'text-base-300/50'}`}>
-                    <span className="text-base-300/30 w-5">{i + 1}.</span>
+                  <div key={i} className={`flex items-center gap-2 ${i === currentStep ? 'text-accent-400' : 'text-gray-500'}`}>
+                    <span className="text-gray-500 w-5">{i + 1}.</span>
                     <span>{s.description}</span>
                   </div>
                 ))}
@@ -465,13 +466,13 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
 
           {/* Error display */}
           {execResult && !execResult.success && showAnalysis && execResult.failReason && (
-            <div className="bg-error-500/10 border border-error-500/20 rounded-xl p-4 flex items-start gap-3 text-sm text-error-300 animate-fade-in-down">
+            <div className="bg-error-500/10 border border-error-500/20 rounded-3xl p-4 flex items-start gap-3 text-sm text-error-600 animate-fade-in-down">
               <div className="w-6 h-6 rounded-lg bg-error-500/20 flex items-center justify-center flex-shrink-0">
                 <AlertCircle className="w-4 h-4 text-error-400" />
               </div>
               <div>
                 <div className="font-semibold text-error-400 mb-0.5">Action {execResult.failStepIndex !== undefined ? execResult.failStepIndex + 1 : ''} Failed</div>
-                <span className="text-error-300/80">{execResult.failReason}</span>
+                <span className="text-error-700">{execResult.failReason}</span>
               </div>
             </div>
           )}
@@ -488,7 +489,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
               result={execResult}
               score={calculateScore(challenge, execResult, retries, hintsUsed)}
               onReplay={() => { resetState(); setRetries(r => r + 1); }}
-              onOptimise={() => { resetState(); setRetries(r => r + 1); }}
+              onOptimize={() => { resetState(); setRetries(r => r + 1); }}
               onNext={onNextChallenge}
               isNewRecord={false}
             />
@@ -518,7 +519,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
         {/* Right: Objective panel */}
         <div className="space-y-3">
           {/* Objective */}
-          <div className="bg-base-700/80 backdrop-blur-sm rounded-xl border border-white/5 p-4 space-y-3">
+          <div className="bg-base-700 rounded-3xl border border-line p-4 space-y-3 shadow-soft">
             <h3 className="text-sm font-semibold text-accent-400 uppercase tracking-wider flex items-center gap-2">
               <Target className="w-4 h-4" /> Objective
             </h3>
@@ -527,7 +528,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
           </div>
 
           {/* Constraints */}
-          <div className="bg-base-700/80 backdrop-blur-sm rounded-xl border border-white/5 p-4 space-y-2.5">
+          <div className="bg-base-700 rounded-3xl border border-line p-4 space-y-2.5 shadow-soft">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-2">
               <Layers className="w-3.5 h-3.5" /> Constraints
             </h3>
@@ -542,7 +543,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
               ))
             )}
             {challenge.targets.length > 1 && (
-              <div className="flex items-center gap-2.5 text-sm text-gray-300 pt-1 border-t border-white/5">
+              <div className="flex items-center gap-2.5 text-sm text-gray-300 pt-1 border-t border-line">
                 <Target className="w-4 h-4 text-accent-400" />
                 <span>Reach {challenge.targets.length} targets: {challenge.targets.join(', ')}</span>
               </div>
@@ -551,9 +552,9 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
 
           {/* Keyboard hint */}
           {!isRunning && placedActions.length === 0 && (
-            <div className="bg-base-700/50 rounded-xl border border-white/5 p-3">
+            <div className="bg-base-700 rounded-3xl border border-line p-3">
               <div className="flex items-center gap-2 text-[11px] text-gray-500">
-                <Keyboard className="w-3.5 h-3.5 text-base-300/40" />
+                <Keyboard className="w-3.5 h-3.5 text-gray-500" />
                 <span>Use arrow keys to add moves, <kbd className="px-1 py-0.5 rounded bg-base-400 text-[9px] font-mono">Enter</kbd> to run</span>
               </div>
             </div>
@@ -563,7 +564,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
           {hintsUsed < 3 && (
             <button
               onClick={useHint}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-warning-500/10 hover:bg-warning-500/20 text-warning-400 font-medium text-sm transition-all border border-warning-500/20 hover:scale-[1.02]"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-warning-500/10 hover:bg-warning-500/20 text-warning-400 font-medium text-sm transition-all border border-warning-500/20 hover:scale-[1.02]"
             >
               <Lightbulb className="w-4 h-4" />
               Get Hint ({3 - hintsUsed} remaining)
@@ -573,7 +574,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
           {hintRevealed.length > 0 && (
             <div className="space-y-2">
               {hintRevealed.map((h, i) => (
-                <div key={i} className="bg-warning-500/5 border border-warning-500/20 rounded-xl p-3 text-sm text-warning-200/80 animate-fade-in-up">
+                <div key={i} className="bg-warning-500/5 border border-warning-500/20 rounded-2xl p-3 text-sm text-warning-700 animate-fade-in-up">
                   <span className="font-semibold text-warning-400">Hint {i + 1}:</span> {h}
                 </div>
               ))}
@@ -589,15 +590,15 @@ function GameHeader({ challenge, onExit }: { challenge: Challenge; onExit: () =>
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <button onClick={onExit} className="p-2 rounded-lg bg-base-400 hover:bg-base-300 text-gray-400 hover:text-white transition-all">
+        <button onClick={onExit} className="p-2 rounded-full bg-base-400 hover:bg-gray-800 text-gray-400 hover:text-ink transition-all">
           <ArrowLeft className="w-4 h-4" />
         </button>
         <div>
-          <h2 className="text-lg font-bold text-white">{challenge.title}</h2>
+          <h2 className="text-lg font-bold text-ink">{challenge.title}</h2>
           <p className="text-xs text-gray-500 capitalize flex items-center gap-2">
             <span className="inline-flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-accent-400" />
-              {challenge.category}
+              {categoryLabel(challenge.category)}
             </span>
             <span className="text-gray-700">·</span>
             <span>Difficulty {challenge.difficulty}/7</span>

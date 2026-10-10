@@ -72,7 +72,7 @@ export function SolutionBuilder({
   const totalCost = placedActions.reduce((sum, a) => sum + a.cost, 0);
 
   return (
-    <div className="bg-base-700/80 backdrop-blur-sm rounded-2xl border border-white/5 p-4 space-y-4 shadow-xl shadow-black/20">
+    <div className="bg-base-700 rounded-3xl border border-line p-4 space-y-4 shadow-soft">
       {/* Action palette */}
       <div>
         <h4 className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2.5">Available Actions</h4>
@@ -85,7 +85,7 @@ export function SolutionBuilder({
                 key={action.type}
                 onClick={() => onAddAction(action)}
                 disabled={isRunning}
-                className="group flex items-center gap-1.5 px-3 py-2 rounded-lg bg-base-400/80 hover:bg-accent-500/15 text-gray-300 hover:text-accent-400 text-sm font-medium transition-all border border-white/5 hover:border-accent-500/30 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-105"
+                className="group flex items-center gap-1.5 px-3 py-2 rounded-lg bg-base-400 hover:bg-accent-500/15 text-gray-300 hover:text-accent-400 text-sm font-medium transition-all border border-line hover:border-accent-500/30 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-105"
               >
                 <Icon className="w-4 h-4" />
                 {action.label}
@@ -93,7 +93,7 @@ export function SolutionBuilder({
                   <span className="text-[10px] text-gray-500 ml-0.5 font-mono">{action.cost}e</span>
                 )}
                 {keyHint && (
-                  <kbd className="hidden sm:inline-block px-1 py-0.5 rounded bg-base-300/50 text-[9px] font-mono text-gray-500 group-hover:text-accent-400/60 ml-1">{keyHint}</kbd>
+                  <kbd className="hidden sm:inline-block px-1 py-0.5 rounded bg-gray-800 text-[9px] font-mono text-gray-500 group-hover:text-accent-400/60 ml-1">{keyHint}</kbd>
                 )}
               </button>
             );
@@ -122,7 +122,7 @@ export function SolutionBuilder({
         </div>
 
         {placedActions.length === 0 ? (
-          <div className="text-center py-8 text-gray-600 text-sm border border-dashed border-white/5 rounded-xl bg-base-800/50">
+          <div className="text-center py-8 text-gray-600 text-sm border border-dashed border-line rounded-xl bg-base-800/50">
             <ChevronRight className="w-5 h-5 mx-auto mb-1.5 text-gray-700" />
             Add actions above to build your solution
           </div>
@@ -142,8 +142,8 @@ export function SolutionBuilder({
                         ? 'bg-error-500/15 border-error-500/50 scale-[1.02]'
                         : 'bg-accent-500/15 border-accent-500/50 scale-[1.02]'
                       : isPast
-                      ? 'bg-base-400/20 border-white/5 opacity-40'
-                      : 'bg-base-400/60 border-white/5 hover:border-white/10'
+                      ? 'bg-base-400 border-line opacity-40'
+                      : 'bg-base-400 border-line hover:border-gray-700'
                   }`}
                 >
                   <span className={`text-xs font-mono w-5 text-center ${isCurrent ? 'text-accent-400' : 'text-gray-600'}`}>{i + 1}</span>
@@ -195,13 +195,13 @@ export function SolutionBuilder({
               <Zap className={`w-3.5 h-3.5 ${energyLow ? 'text-error-400 animate-pulse' : 'text-yellow-400'}`} />
               <span className="text-gray-500">Energy:</span>
               <div className="flex items-center gap-1.5">
-                <span className={`font-mono font-bold ${energyLow ? 'text-error-400' : 'text-white'}`}>
+                <span className={`font-mono font-bold ${energyLow ? 'text-error-400' : 'text-ink'}`}>
                   {energy}
                 </span>
                 <span className="text-gray-600 font-mono">/ {energyLimit}</span>
               </div>
               {/* Energy bar */}
-              <div className="w-16 h-1.5 bg-base-400 rounded-full overflow-hidden">
+              <div className="w-16 h-1.5 bg-gray-800 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all ${energyLow ? 'bg-error-500' : 'bg-yellow-400'}`}
                   style={{ width: `${Math.max(0, (energy / energyLimit) * 100)}%` }}
@@ -212,7 +212,7 @@ export function SolutionBuilder({
           {moveLimit !== undefined && (
             <div className="flex items-center gap-1.5">
               <span className="text-gray-500">Moves:</span>
-              <span className={`font-mono font-bold ${movesHigh ? 'text-warning-400' : 'text-white'}`}>
+              <span className={`font-mono font-bold ${movesHigh ? 'text-warning-400' : 'text-ink'}`}>
                 {moves}
               </span>
               <span className="text-gray-600 font-mono">/ {moveLimit}</span>
@@ -226,16 +226,16 @@ export function SolutionBuilder({
         <button
           onClick={onRun}
           disabled={isRunning || placedActions.length === 0}
-          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-accent-500 to-secondary-600 hover:from-accent-400 hover:to-secondary-500 text-white font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-accent-500/20 hover:scale-[1.02]"
+          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-accent-500 hover:bg-accent-600 text-white font-semibold text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-soft hover:scale-[1.02]"
         >
           <Play className="w-4 h-4" />
           Run
-          <kbd className="hidden sm:inline-block px-1 py-0.5 rounded bg-white/10 text-[9px] font-mono opacity-70">↵</kbd>
+          <kbd className="hidden sm:inline-block px-1 py-0.5 rounded bg-ink/10 text-[9px] font-mono opacity-70">↵</kbd>
         </button>
         <button
           onClick={onStep}
           disabled={isRunning || placedActions.length === 0}
-          className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-base-400 hover:bg-base-300 text-gray-300 font-medium text-sm transition-all border border-white/5 disabled:opacity-40"
+          className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-base-400 hover:bg-gray-800 text-gray-300 font-medium text-sm transition-all border border-line disabled:opacity-40"
         >
           <SkipForward className="w-4 h-4" />
           Step
@@ -243,7 +243,7 @@ export function SolutionBuilder({
         <button
           onClick={onReset}
           disabled={isRunning}
-          className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-base-400 hover:bg-base-300 text-gray-300 font-medium text-sm transition-all border border-white/5 disabled:opacity-40"
+          className="flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-base-400 hover:bg-gray-800 text-gray-300 font-medium text-sm transition-all border border-line disabled:opacity-40"
         >
           <RotateCw className="w-4 h-4" />
           Reset

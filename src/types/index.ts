@@ -16,7 +16,7 @@ export type ChallengeCategory =
   | 'logic'
   | 'pathfinding'
   | 'resource'
-  | 'optimisation'
+  | 'optimisation' // stored key kept for saved-progress compatibility; shown as "optimization"
   | 'algorithm';
 
 export type Difficulty = 1 | 2 | 3 | 4 | 5 | 6 | 7;

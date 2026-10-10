@@ -9,7 +9,7 @@ export const ACHIEVEMENTS_LIST: Achievement[] = [
   { id: 'logic-architect', title: 'Logic Architect', description: 'Solve 10 logic challenges.', unlocked: false },
   { id: 'route-master', title: 'Route Master', description: 'Solve 10 pathfinding challenges.', unlocked: false },
   { id: 'zero-waste', title: 'Zero Waste', description: 'Complete a resource challenge without wasting resources.', unlocked: false },
-  { id: 'optimiser', title: 'Optimiser', description: 'Improve the same solution three times.', unlocked: false },
+  { id: 'optimiser', title: 'Optimizer', description: 'Improve the same solution three times.', unlocked: false },
   { id: 'perfect-logic', title: 'Perfect Logic', description: 'Complete a challenge without using a hint.', unlocked: false },
   { id: 'master-grid', title: 'Master Grid', description: 'Complete the advanced campaign.', unlocked: false },
   { id: 'daily-dedicated', title: 'Daily Dedicated', description: 'Complete 5 daily challenges.', unlocked: false },

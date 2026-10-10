@@ -39,8 +39,8 @@ export function NavBar({ screen, onNavigate, onToggleSound, soundEnabled }: NavB
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-base-800/95 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
-          : 'bg-base-800/80 backdrop-blur-sm border-b border-transparent'
+          ? 'bg-base-800 border-b border-line shadow-soft'
+          : 'bg-base-800 border-b border-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
@@ -49,11 +49,10 @@ export function NavBar({ screen, onNavigate, onToggleSound, soundEnabled }: NavB
               onClick={() => handleNav('home')}
               className="flex items-center gap-2.5 group"
             >
-              <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-accent-400 to-secondary-600 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-accent-500/20">
+              <div className="relative w-8 h-8 rounded-lg bg-accent-500 flex items-center justify-center group-hover:scale-110 transition-transform shadow-soft">
                 <Grid3x3 className="w-5 h-5 text-white" />
-                <div className="absolute inset-0 rounded-lg bg-accent-400/20 opacity-0 group-hover:opacity-100 transition-opacity blur-sm" />
               </div>
-              <span className="text-white font-bold text-lg tracking-tight hidden sm:block">
+              <span className="font-display text-ink font-semibold text-xl tracking-tight hidden sm:block">
                 Logic<span className="text-accent-400">Grid</span>
               </span>
             </button>
@@ -67,17 +66,14 @@ export function NavBar({ screen, onNavigate, onToggleSound, soundEnabled }: NavB
                   <button
                     key={item.screen}
                     onClick={() => handleNav(item.screen)}
-                    className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                    className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                       active
-                        ? 'text-accent-400'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                        ? 'bg-accent-50 text-accent-600'
+                        : 'text-gray-400 hover:text-ink hover:bg-ink/5'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
                     {item.label}
-                    {active && (
-                      <div className="absolute -bottom-0.5 left-2 right-2 h-0.5 bg-accent-400 rounded-full" />
-                    )}
                   </button>
                 );
               })}
@@ -87,14 +83,14 @@ export function NavBar({ screen, onNavigate, onToggleSound, soundEnabled }: NavB
             <div className="flex items-center gap-2">
               <button
                 onClick={onToggleSound}
-                className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                className="p-2 rounded-full text-gray-400 hover:text-ink hover:bg-ink/5 transition-colors"
                 aria-label={soundEnabled ? 'Mute sound' : 'Enable sound'}
               >
                 {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
               </button>
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden p-2 rounded-md text-gray-400 hover:text-white"
+                className="md:hidden p-2 rounded-full text-gray-400 hover:text-ink"
                 aria-label="Toggle menu"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,7 +103,7 @@ export function NavBar({ screen, onNavigate, onToggleSound, soundEnabled }: NavB
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <nav className="md:hidden border-t border-white/5 px-4 py-3 space-y-1 bg-base-800/95 backdrop-blur-md animate-fade-in-down">
+          <nav className="md:hidden border-t border-line px-4 py-3 space-y-1 bg-base-800 animate-fade-in-down">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
               const active = screen === item.screen;
@@ -115,10 +111,10 @@ export function NavBar({ screen, onNavigate, onToggleSound, soundEnabled }: NavB
                 <button
                   key={item.screen}
                   onClick={() => handleNav(item.screen)}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm font-medium transition-all ${
+                  className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-full text-sm font-medium transition-all ${
                     active
                       ? 'bg-accent-500/10 text-accent-400'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      : 'text-gray-400 hover:text-ink hover:bg-ink/5'
                   }`}
                 >
                   <Icon className="w-4 h-4" />

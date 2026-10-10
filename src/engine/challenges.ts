@@ -596,7 +596,7 @@ export const CAMPAIGN_CHAPTERS: Chapter[] = [
   },
   {
     id: 'ch6-optimisation',
-    title: 'Optimisation',
+    title: 'Optimization',
     category: 'optimisation',
     difficulty: 4,
     description: 'Improve your solutions to be more efficient.',
@@ -659,4 +659,9 @@ export function validateChallengeSolvable(challenge: Challenge): boolean {
     if (!found) return false;
   }
   return true;
+}
+
+/** Display label for a category (the stored key keeps its original spelling for saved-progress compatibility). */
+export function categoryLabel(category: string): string {
+  return category === 'optimisation' ? 'optimization' : category;
 }

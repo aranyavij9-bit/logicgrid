@@ -13,8 +13,8 @@ const STEPS = [
   { icon: Wrench, title: 'Plan a Solution', desc: 'Think about the sequence of actions needed to reach your goal.' },
   { icon: Play, title: 'Build Actions', desc: 'Add actions to your solution sequence. Reorder, duplicate, or remove them.' },
   { icon: RotateCcw, title: 'Run the Solution', desc: 'Press Run to execute your plan step-by-step and watch the result.' },
-  { icon: BarChart3, title: 'Analyse the Result', desc: 'See what worked and what failed. Learn from the feedback.' },
-  { icon: TrendingUp, title: 'Optimise', desc: 'Try again with fewer moves or less energy to earn more stars.' },
+  { icon: BarChart3, title: 'Analyze the Result', desc: 'See what worked and what failed. Learn from the feedback.' },
+  { icon: TrendingUp, title: 'Optimize', desc: 'Try again with fewer moves or less energy to earn more stars.' },
 ];
 
 export function HowItWorksScreen({ onNavigate, onStartChallenge }: HowItWorksProps) {
@@ -27,8 +27,8 @@ export function HowItWorksScreen({ onNavigate, onStartChallenge }: HowItWorksPro
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-white mb-2">How It Works</h1>
-        <p className="text-gray-400">The core loop: Understand, Plan, Build, Execute, Analyse, Optimise.</p>
+        <h1 className="text-3xl font-bold text-ink mb-2">How It Works</h1>
+        <p className="text-gray-400">The core loop: Understand, Plan, Build, Execute, Analyze, Optimize.</p>
       </div>
 
       {/* Steps */}
@@ -36,14 +36,14 @@ export function HowItWorksScreen({ onNavigate, onStartChallenge }: HowItWorksPro
         {STEPS.map((step, i) => {
           const Icon = step.icon;
           return (
-            <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-[#0d1117] border border-white/5">
+            <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white shadow-soft border border-line">
               <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
                 <Icon className="w-5 h-5 text-cyan-400" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-mono text-gray-500">{i + 1}</span>
-                  <h3 className="text-sm font-semibold text-white">{step.title}</h3>
+                  <h3 className="text-sm font-semibold text-ink">{step.title}</h3>
                 </div>
                 <p className="text-xs text-gray-500 mt-0.5">{step.desc}</p>
               </div>
@@ -54,12 +54,12 @@ export function HowItWorksScreen({ onNavigate, onStartChallenge }: HowItWorksPro
       </div>
 
       {/* Try it */}
-      <div className="bg-[#0d1117] rounded-xl border border-cyan-500/20 p-6 text-center">
-        <h3 className="text-lg font-semibold text-white mb-2">Ready to Try?</h3>
+      <div className="bg-white shadow-soft rounded-3xl border border-cyan-500/20 p-6 text-center">
+        <h3 className="text-lg font-semibold text-ink mb-2">Ready to Try?</h3>
         <p className="text-sm text-gray-400 mb-4">Start with a quick tutorial puzzle to see how it works.</p>
         <button
           onClick={() => setShowTutorial(true)}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-white font-semibold transition-all shadow-lg shadow-cyan-500/20"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent-500 hover:bg-accent-600 text-white font-semibold transition-all shadow-soft"
         >
           <Play className="w-4 h-4" /> Start Tutorial
         </button>
@@ -80,12 +80,12 @@ export function HowItWorksScreen({ onNavigate, onStartChallenge }: HowItWorksPro
 function TutorialPuzzle({ onExit, onStartChallenge, onNavigate }: { onExit: () => void; onStartChallenge: (id: string) => void; onNavigate: (screen: Screen) => void }) {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-      <button onClick={onExit} className="flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors">
+      <button onClick={onExit} className="flex items-center gap-2 text-sm text-gray-500 hover:text-ink transition-colors">
         <ArrowLeft className="w-4 h-4" /> Back to Guide
       </button>
 
-      <div className="bg-[#0d1117] rounded-xl border border-white/5 p-6 space-y-4">
-        <h2 className="text-xl font-bold text-white">Tutorial: Switch Corridor</h2>
+      <div className="bg-white shadow-soft rounded-3xl border border-line p-6 space-y-4">
+        <h2 className="text-xl font-bold text-ink">Tutorial: Switch Corridor</h2>
         <p className="text-sm text-gray-400">
           This is a real challenge from the campaign. Your goal is to reach the target (H) on the right side of the grid.
           A gate blocks the direct path — you need to activate a switch first.
@@ -116,7 +116,7 @@ function TutorialPuzzle({ onExit, onStartChallenge, onNavigate }: { onExit: () =
 
         <button
           onClick={() => onStartChallenge('switch-corridor')}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-white font-semibold transition-all"
+          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full bg-accent-500 hover:bg-accent-600 text-white font-semibold transition-all"
         >
           <Play className="w-4 h-4" /> Play Tutorial Challenge
         </button>
