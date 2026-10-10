@@ -509,6 +509,7 @@ export function GameScreen({ challenge, onExit, onComplete, onNextChallenge, sou
             onReset={resetState}
             isRunning={isRunning}
             currentStep={currentStep}
+            execResult={execResult}
             energy={state.energy}
             moves={state.moves}
             moveLimit={moveLimit}

@@ -14,6 +14,8 @@ interface SolutionBuilderProps {
   onReset: () => void;
   isRunning: boolean;
   currentStep: number;
+  /** Result of the current run, used to mark the step that failed */
+  execResult?: { failStepIndex?: number } | null;
   energy: number;
   moves: number;
   moveLimit?: number;
@@ -62,6 +64,7 @@ export function SolutionBuilder({
   onReset,
   isRunning,
   currentStep,
+  execResult,
   energy,
   moves,
   moveLimit,
